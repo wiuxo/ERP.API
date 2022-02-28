@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
+using ERP.Core.Repositories;
 using ERP.DAL;
+using ERP.DAL.Repositories;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -28,9 +30,7 @@ public static class ServiceRegistration
 
     public static IServiceCollection RegisterServices(this IServiceCollection services)
     {
-        // services.AddTransient<IUserRepository, UserRepository>();
-        return null;
-
+        return services.AddTransient<IProductRepository, ProductRepository>();
     }
 
     public static void AddBusinessLayer(this IServiceCollection services, IConfiguration configuration)

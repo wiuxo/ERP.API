@@ -1,22 +1,20 @@
-﻿using ERP.Entities.Models;
+﻿using System.Reflection;
+using ERP.Entities.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace ERP.DAL;
 
 public class AppDbContext : DbContext
 {
-    protected readonly IConfiguration _configuration;
-
-    public AppDbContext(IConfiguration configuration)
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
-        _configuration = configuration;
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("connectionStr"));
-    }
+    public DbSet<Product> Products { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        base.OnModelCreating(modelBuilder);
+    }
 }
