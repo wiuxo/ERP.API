@@ -5,7 +5,7 @@ namespace ERP.Core.Repositories;
 
 public interface IGenericRepository<TEntity> where TEntity : class, IEntity
 {
-    TEntity Add(TEntity entity);
+    TEntity Add(TEntity entity);//aa
     TEntity Update(TEntity entity);
     TEntity Remove(TEntity entity);
     IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> expression = null);
